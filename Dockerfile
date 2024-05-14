@@ -11,6 +11,12 @@ FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
 # Base FrankenPHP image
 FROM frankenphp_upstream AS frankenphp_base
 
+RUN apt update
+
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash && apt install -y symfony-cli
+
+RUN apt install -y nodejs npm
+
 WORKDIR /app
 
 VOLUME /app/var/
