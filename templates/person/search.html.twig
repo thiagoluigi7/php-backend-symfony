@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Person{% endblock %}
+
+{% block body %}
+    <h1>Home</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Search') }}</button>
+    {{ form_end(form) }}
+
+    <br>
+
+    <a href="{{ path('app_person_new') }}">Create new</a>
+
+{% endblock %}
