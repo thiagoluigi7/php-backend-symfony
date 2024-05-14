@@ -1,5 +1,25 @@
 # Symfony Docker
 
+## Iniciando a aplicação
+
+1. Para iniciar a aplicação é necessário ter o [install Docker Compose](https://docs.docker.com/compose/install/) instalado.
+2. Execute o comando `docker compose build --no-cache && docker compose up --pull always -d --wait`. Ele irá construir o ambiente e iniciar a aplicação.
+3. Agora abra `https://localhost` no navegador e [aceite os certificados TLS que foram gerados automaticamente](https://stackoverflow.com/a/15076602/1352334).
+4. Os testes podem ser executados com o comando `docker compose exec php bin/phpunit`.
+5. Para parar a aplicação use o comando `docker compose down --remove-orphans`
+
+Com isto será possível testar a aplicação.
+
+Qualquer dúvida pode mandar um email: thiagoluigi7@hotmail.com
+
+## Comentários
+
+Este repositório foi criado usando um template indicado pela documentação do Symfony. <br>
+Os testes estão usando o mesmo banco que a aplicação. Em produção o banco de testes e o banco de produção devem ser separados. <br>
+Se por algum acaso você estiver usando Linux e der algum erro de permissão, use este comando `docker compose run --rm php chown -R $(id -u):$(id -g) .`. É possível ler mais a respeito na seção de [Troubleshooting](docs/troubleshooting.md).
+
+## Readme original
+
 A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
 with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
 
