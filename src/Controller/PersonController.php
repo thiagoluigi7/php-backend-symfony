@@ -24,7 +24,7 @@ class PersonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $nis = $form->getData()->getNis();
-            $person = $personRepository->findOneBy(array('nis' => $nis));
+            $person = $personRepository->findOneByNis($nis);
 
             if (!$person) {
                 return $this->render('person/not_found.html.twig');
@@ -48,14 +48,8 @@ class PersonController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $isNisInvalid = true;
-            do {
-                $nis = $person->generateNis();
-                $isNisInvalid = $personRepository->findBy(array('nis' => $nis));
-            } while ($isNisInvalid);
-            $person->setNis($nis);
-            $entityManager->persist($person);
-            $entityManager->flush();
+
+            $personRepository->create($person);
 
             // return $this->redirectToRoute('app_person_index', [], Response::HTTP_SEE_OTHER);
             return $this->render('person/created.html.twig', [

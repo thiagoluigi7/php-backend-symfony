@@ -31,13 +31,30 @@ class PersonRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Person
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function create($person): ?Person
+    {
+        $isNisInvalid = true;
+
+        do {
+            $nis = $person->generateNis();
+            $isNisInvalid = $this->findOneByNis($nis);
+        } while ($isNisInvalid);
+
+        $person->setNis($nis);
+
+        $this->getEntityManager()->persist($person);
+        $this->getEntityManager()->flush();
+
+        return $person;
+    }
+
+    public function findOneByNis($value): ?Person
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.nis = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
