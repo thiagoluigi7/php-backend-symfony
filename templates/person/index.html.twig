@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Persons index{% endblock %}
+{% block title %}Person index{% endblock %}
 
 {% block body %}
-    <h1>Persons index</h1>
+    <h1>Person index</h1>
 
     <table class="table">
         <thead>
@@ -15,14 +15,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for person in persons %}
+        {% for person in people %}
             <tr>
                 <td>{{ person.id }}</td>
                 <td>{{ person.name }}</td>
                 <td>{{ person.nis }}</td>
                 <td>
-                    <a href="{{ path('app_persons_show', {'id': person.id}) }}">show</a>
-                    <a href="{{ path('app_persons_edit', {'id': person.id}) }}">edit</a>
+                    <a href="{{ path('app_person_show', {'id': person.id}) }}">show</a>
+                    <a href="{{ path('app_person_edit', {'id': person.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_persons_new') }}">Create new</a>
+    <a href="{{ path('app_person_new') }}">Create new</a>
 {% endblock %}

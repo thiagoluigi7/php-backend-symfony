@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PersonsRepository;
+use App\Repository\PersonRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PersonsRepository::class)]
-class Persons
+#[ORM\Entity(repositoryClass: PersonRepository::class)]
+class Person
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,8 +16,8 @@ class Persons
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?int $nis = null;
+    #[ORM\Column(length: 255)]
+    private ?string $nis = null;
 
     public function getId(): ?int
     {
@@ -36,15 +36,20 @@ class Persons
         return $this;
     }
 
-    public function getNis(): ?int
+    public function getNis(): ?string
     {
         return $this->nis;
     }
 
-    public function setNis(int $nis): static
+    public function setNis(string $nis): static
     {
         $this->nis = $nis;
 
         return $this;
+    }
+
+    public function generateNis(): ?int
+    {
+        return rand(10000000000, 99999999999);
     }
 }
